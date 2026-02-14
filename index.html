@@ -3,57 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine ❤️</title>
+<title>For Bhoomi ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family:'Segoe UI',sans-serif;
   overflow:hidden;
-  background: linear-gradient(135deg,#ff4d6d,#ff8fa3);
+  background:linear-gradient(135deg,#ff4d6d,#ff8fa3);
   color:white;
   text-align:center;
 }
 
-/* Glass Card */
+/* Card */
 .card{
-  backdrop-filter: blur(15px);
-  background: rgba(255,255,255,0.15);
+  backdrop-filter:blur(15px);
+  background:rgba(255,255,255,0.15);
   border-radius:20px;
   padding:25px;
   width:90%;
-  max-width:400px;
+  max-width:420px;
   margin:auto;
-  margin-top:15vh;
+  margin-top:12vh;
   box-shadow:0 8px 30px rgba(0,0,0,0.2);
   animation:fade 1s;
 }
 
 @keyframes fade{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-input,button{
-  padding:10px;
-  border:none;
-  border-radius:20px;
-  margin-top:10px;
-  width:80%;
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
 button{
+  padding:10px;
+  border:none;
+  border-radius:20px;
+  margin:8px;
+  width:120px;
   background:white;
   color:#ff4d6d;
   font-weight:bold;
   cursor:pointer;
 }
 
-/* Floating Hearts */
-.heart{
+/* Floating icons */
+.float{
   position:absolute;
-  color:#fff;
-  animation:float 6s linear infinite;
+  animation:float 7s linear infinite;
+  font-size:22px;
 }
 
 @keyframes float{
@@ -61,7 +60,7 @@ button{
   to{transform:translateY(-10vh);}
 }
 
-/* Heart Unlock */
+/* Heart */
 .big-heart{
   font-size:70px;
   cursor:pointer;
@@ -73,16 +72,23 @@ button{
   50%{transform:scale(1.2);}
 }
 
-/* Love Letter */
-.letter{
+/* Handwritten */
+.handwritten{
+  font-family:'Dancing Script',cursive;
+  font-size:24px;
   text-align:left;
   white-space:pre-line;
-  animation:typing 4s steps(40,end);
 }
 
-@keyframes typing{
-  from{width:0;}
-  to{width:100%;}
+/* Ring animation */
+.ring{
+  font-size:60px;
+  animation:ringPop 1s ease forwards;
+}
+
+@keyframes ringPop{
+  from{transform:scale(0);}
+  to{transform:scale(1);}
 }
 </style>
 </head>
@@ -92,104 +98,96 @@ button{
 
 <script>
 const app=document.getElementById("app");
+const loveName="Bhoomi";
 
-const reasons=[
-"Your smile makes my worst days better",
-"You understand me without words",
-"You make my world feel complete",
-"You are my peace in chaos",
-"Your laugh is my favorite sound"
-];
+/* Floating ❤️ 🌹 🐼 */
+setInterval(()=>{
+  const el=document.createElement("div");
+  el.className="float";
+  el.style.left=Math.random()*100+"vw";
+  const icons=["❤️","🌹","🐼"];
+  el.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),7000);
+},600);
 
-function floatingHearts(){
-  setInterval(()=>{
-    const h=document.createElement("div");
-    h.className="heart";
-    h.style.left=Math.random()*100+"vw";
-    h.innerHTML="❤";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),6000);
-  },700);
-}
-
-function welcome(){
+/* Start */
+function start(){
   app.innerHTML=`
   <div class="card">
     <h2>💖 Happy Valentine’s Day 💖</h2>
-    <p>Enter your love's name</p>
-    <input id="name" placeholder="Her Name">
-    <br>
-    <button onclick="next()">Start Journey ❤️</button>
+    <p>This is for you, ${loveName}</p>
+    <button onclick="journey()">Start ❤️</button>
   </div>`;
 }
 
-function next(){
-  const name=document.getElementById("name").value;
-  if(!name){alert("Enter name ❤️");return;}
-  localStorage.setItem("loveName",name);
-  showReasons();
-}
-
-function showReasons(){
-  const name=localStorage.getItem("loveName");
-  let randomReason=reasons[Math.floor(Math.random()*reasons.length)];
-
+/* Journey */
+function journey(){
   app.innerHTML=`
   <div class="card">
-    <h2>Why I Love You, ${name} ❤️</h2>
-    <p>${randomReason}</p>
-    <button onclick="memories()">Next →</button>
-  </div>`;
-}
-
-function memories(){
-  const name=localStorage.getItem("loveName");
-
-  app.innerHTML=`
-  <div class="card">
-    <h2>Our Moments ✨</h2>
+    <h2>Why I Love You ❤️</h2>
     <p>
-    Every moment with you feels like a beautiful dream.<br>
-    From our small talks to deep conversations,<br>
-    everything with you is special.
+    Your smile heals my soul.<br>
+    Your voice is my favorite melody.<br>
+    With you, everything feels right.
     </p>
-    <button onclick="unlock()">Unlock My Heart ❤️</button>
+    <button onclick="letter()">Next →</button>
   </div>`;
 }
 
-function unlock(){
+/* Handwritten Letter */
+function letter(){
+  app.innerHTML=`
+  <div class="card handwritten">
+  Dear ${loveName},
+
+  I never knew love could feel this warm…
+  until you came into my life.
+
+  You are my peace in chaos,
+  my light in darkness,
+  and my forever home.
+
+  When I see you,
+  I see my present,
+  my future,
+  and every dream I've ever had.
+
+  ❤️ Will you be my Valentine? ❤️
+
+  <div style="text-align:center;margin-top:20px;">
+    <button onclick="yes()">YES 💖</button>
+    <button onclick="no()">NO 😢</button>
+  </div>
+  </div>`;
+}
+
+/* YES → Ring Proposal */
+function yes(){
   app.innerHTML=`
   <div class="card">
-    <h2>Tap to Unlock My Heart</h2>
-    <div class="big-heart" onclick="letter()">❤️</div>
+    <div class="ring">💍</div>
+    <h2>${loveName}, Will You Marry Me? ❤️</h2>
+    <p>
+    I promise to stand beside you in every moment,<br>
+    to love you endlessly,<br>
+    and to choose you every single day.
+    </p>
+    <h3>Forever Starts With You 💖</h3>
   </div>`;
 }
 
-function letter(){
-  const name=localStorage.getItem("loveName");
-
+/* NO → Cute panda */
+function no(){
   app.innerHTML=`
-  <div class="card letter">
-  Dear ${name},
-
-  I never believed in perfect love
-  until you walked into my life.
-
-  You are not just my love,
-  you are my home,
-  my peace,
-  my forever.
-
-  No matter where life takes us,
-  my heart will always choose you.
-
-  Happy Valentine’s Day ❤️
-  Forever Yours.
+  <div class="card">
+    <h2>🐼 Are you sure? 🐼</h2>
+    <p>My heart only beats for you ❤️</p>
+    <button onclick="letter()">Try Again 💖</button>
   </div>`;
 }
 
-floatingHearts();
-welcome();
+start();
 </script>
 
 </body>
