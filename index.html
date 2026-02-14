@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine ❤️</title>
+
+<style>
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  overflow:hidden;
+  background: linear-gradient(135deg,#ff4d6d,#ff8fa3);
+  color:white;
+  text-align:center;
+}
+
+/* Glass Card */
+.card{
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.15);
+  border-radius:20px;
+  padding:25px;
+  width:90%;
+  max-width:400px;
+  margin:auto;
+  margin-top:15vh;
+  box-shadow:0 8px 30px rgba(0,0,0,0.2);
+  animation:fade 1s;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+input,button{
+  padding:10px;
+  border:none;
+  border-radius:20px;
+  margin-top:10px;
+  width:80%;
+}
+
+button{
+  background:white;
+  color:#ff4d6d;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* Floating Hearts */
+.heart{
+  position:absolute;
+  color:#fff;
+  animation:float 6s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+/* Heart Unlock */
+.big-heart{
+  font-size:70px;
+  cursor:pointer;
+  animation:beat 1s infinite;
+}
+
+@keyframes beat{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+}
+
+/* Love Letter */
+.letter{
+  text-align:left;
+  white-space:pre-line;
+  animation:typing 4s steps(40,end);
+}
+
+@keyframes typing{
+  from{width:0;}
+  to{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+const app=document.getElementById("app");
+
+const reasons=[
+"Your smile makes my worst days better",
+"You understand me without words",
+"You make my world feel complete",
+"You are my peace in chaos",
+"Your laugh is my favorite sound"
+];
+
+function floatingHearts(){
+  setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.style.left=Math.random()*100+"vw";
+    h.innerHTML="❤";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },700);
+}
+
+function welcome(){
+  app.innerHTML=`
+  <div class="card">
+    <h2>💖 Happy Valentine’s Day 💖</h2>
+    <p>Enter your love's name</p>
+    <input id="name" placeholder="Her Name">
+    <br>
+    <button onclick="next()">Start Journey ❤️</button>
+  </div>`;
+}
+
+function next(){
+  const name=document.getElementById("name").value;
+  if(!name){alert("Enter name ❤️");return;}
+  localStorage.setItem("loveName",name);
+  showReasons();
+}
+
+function showReasons(){
+  const name=localStorage.getItem("loveName");
+  let randomReason=reasons[Math.floor(Math.random()*reasons.length)];
+
+  app.innerHTML=`
+  <div class="card">
+    <h2>Why I Love You, ${name} ❤️</h2>
+    <p>${randomReason}</p>
+    <button onclick="memories()">Next →</button>
+  </div>`;
+}
+
+function memories(){
+  const name=localStorage.getItem("loveName");
+
+  app.innerHTML=`
+  <div class="card">
+    <h2>Our Moments ✨</h2>
+    <p>
+    Every moment with you feels like a beautiful dream.<br>
+    From our small talks to deep conversations,<br>
+    everything with you is special.
+    </p>
+    <button onclick="unlock()">Unlock My Heart ❤️</button>
+  </div>`;
+}
+
+function unlock(){
+  app.innerHTML=`
+  <div class="card">
+    <h2>Tap to Unlock My Heart</h2>
+    <div class="big-heart" onclick="letter()">❤️</div>
+  </div>`;
+}
+
+function letter(){
+  const name=localStorage.getItem("loveName");
+
+  app.innerHTML=`
+  <div class="card letter">
+  Dear ${name},
+
+  I never believed in perfect love
+  until you walked into my life.
+
+  You are not just my love,
+  you are my home,
+  my peace,
+  my forever.
+
+  No matter where life takes us,
+  my heart will always choose you.
+
+  Happy Valentine’s Day ❤️
+  Forever Yours.
+  </div>`;
+}
+
+floatingHearts();
+welcome();
+</script>
+
+</body>
+</html>
